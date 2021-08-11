@@ -10,8 +10,6 @@ class Token:
         data=secret+'&'+vcode+'&'+time
         encryptdata=encrypt_aes_p.encrypt(data,secret)
         token=hashlib.md5(encryptdata.encode('utf8')).hexdigest()
-        print(time)
-        print(token)
         return token
 
 if __name__ == "__main__":

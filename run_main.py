@@ -1,4 +1,5 @@
 import time ,sys
+import configEmail
 # 引用模块路径
 sys.path.append('./testcase')
 sys.path.append('./db_fixture')
@@ -25,3 +26,13 @@ if __name__ == '__main__':
     runner.run(testsuit)
     # 关闭报告文件
     fp.close()
+    m = configEmail.SendEmail(
+        username='529836597@qq.com',
+        passwd='erqiejdtonnwbjhi',
+        recv=['leon.li@ly.com','zhihua.li@ly.com'],
+        title='测试',
+        content='测试发送邮件',
+        file=r'D:\cxy\InterfaceTest\report\\'+ now + "_result.html",
+        ssl=True
+    )
+m.send_email()

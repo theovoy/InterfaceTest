@@ -26,7 +26,6 @@ class GetDepartureCity(unittest.TestCase):
         self.assertEqual(self.result['code'], "200")
         self.assertEqual(self.result['msg'], '获取成功')
         cityid= self.result['data']['cityList'][1]['cityId']
-        print(self.result)
 
         ''' 到达城市查询 '''
         self.base_url = "https://ebk.17u.cn/cxyopenapi/distributor/city/endCity"
@@ -36,7 +35,6 @@ class GetDepartureCity(unittest.TestCase):
         self.result = r.json()
         self.assertEqual(self.result['code'], "200")
         self.assertEqual(self.result['msg'], '获取成功')
-        print(self.result)
 
 if __name__ == '__main__':
     unittest.main()
