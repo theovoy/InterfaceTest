@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>接口自动化测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.9.1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js"></script>
+    <!-- <script type="text/javascript" src="js/echarts.common.min.js"></script> -->
+
+    
+<style type="text/css" media="screen">
+    body        { font-family: Microsoft YaHei,Consolas,arial,sans-serif; font-size: 80%; }
+    table       { font-size: 100%; }
+    pre         { white-space: pre-wrap;word-wrap: break-word; }
+    /* -- heading ---------------------------------------------------------------------- */
+    h1 {
+        font-size: 16pt;
+        color: gray;
+    }
+    .heading {
+        margin-top: 0ex;
+        margin-bottom: 1ex;
+    }
+    .heading .attribute {
+        margin-top: 1ex;
+        margin-bottom: 0;
+    }
+    .heading .description {
+        margin-top: 2ex;
+        margin-bottom: 3ex;
+    }
+    /* -- css div popup ------------------------------------------------------------------------ */
+    a.popup_link {
+    }
+    a.popup_link:hover {
+        color: red;
+    }
+    .popup_window {
+        display: none;
+        position: relative;
+        left: 0px;
+        top: 0px;
+        /*border: solid #627173 1px; */
+        padding: 10px;
+        /*background-color: #E6E6D6; */
+        font-family: "Lucida Console", "Courier New", Courier, monospace;
+        text-align: left;
+        font-size: 8pt;
+        /* width: 500px;*/
+    }
+    }
+    /* -- report ------------------------------------------------------------------------ */
+    #show_detail_line {
+        margin-top: 3ex;
+        margin-bottom: 1ex;
+    }
+    #result_table {
+        width: 99%;
+    }
+    #header_row {
+        font-weight: bold;
+        color: #303641;
+        background-color: #ebebeb;
+    }
+    #total_row  { font-weight: bold; }
+    .passClass  { background-color: #bdedbc; }
+    .failClass  { background-color: #ffefa4; }
+    .errorClass { background-color: #ffc9c9; }
+    .passCase   { color: #6c6; }
+    .failCase   { color: #FF6600; font-weight: bold; }
+    .errorCase  { color: #c00; font-weight: bold; }
+    .hiddenRow  { display: none; }
+    .testcase   { margin-left: 2em; }
+    /* -- ending ---------------------------------------------------------------------- */
+    #ending {
+    }
+    #div_base {
+                position:absolute;
+                top:0%;
+                left:5%;
+                right:5%;
+                width: auto;
+                height: auto;
+                margin: -15px 0 0 0;
+    }
+</style>
+
+
+</head>
+<body>
+    <script language="javascript" type="text/javascript"><!--
+    output_list = Array();
+    /* level - 0:Summary; 1:Failed; 2:All */
+    function showCase(level) {
+        trs = document.getElementsByTagName("tr");
+        for (var i = 0; i < trs.length; i++) {
+            tr = trs[i];
+            id = tr.id;
+            if (id.substr(0,2) == 'ft') {
+                if (level < 1) {
+                    tr.className = 'hiddenRow';
+                }
+                else {
+                    tr.className = '';
+                }
+            }
+            if (id.substr(0,2) == 'pt') {
+                if (level > 1) {
+                    tr.className = '';
+                }
+                else {
+                    tr.className = 'hiddenRow';
+                }
+            }
+        }
+    }
+    function showClassDetail(cid, count) {
+        var id_list = Array(count);
+        var toHide = 1;
+        for (var i = 0; i < count; i++) {
+            tid0 = 't' + cid.substr(1) + '.' + (i+1);
+            tid = 'f' + tid0;
+            tr = document.getElementById(tid);
+            if (!tr) {
+                tid = 'p' + tid0;
+                tr = document.getElementById(tid);
+            }
+            id_list[i] = tid;
+            if (tr.className) {
+                toHide = 0;
+            }
+        }
+        for (var i = 0; i < count; i++) {
+            tid = id_list[i];
+            if (toHide) {
+                document.getElementById('div_'+tid).style.display = 'none'
+                document.getElementById(tid).className = 'hiddenRow';
+            }
+            else {
+                document.getElementById(tid).className = '';
+            }
+        }
+    }
+    function showTestDetail(div_id){
+        var details_div = document.getElementById(div_id)
+        var displayState = details_div.style.display
+        // alert(displayState)
+        if (displayState != 'block' ) {
+            displayState = 'block'
+            details_div.style.display = 'block'
+        }
+        else {
+            details_div.style.display = 'none'
+        }
+    }
+    function html_escape(s) {
+        s = s.replace(/&/g,'&amp;');
+        s = s.replace(/</g,'&lt;');
+        s = s.replace(/>/g,'&gt;');
+        return s;
+    }
+    /* obsoleted by detail in <div>
+    function showOutput(id, name) {
+        var w = window.open("", //url
+                        name,
+                        "resizable,scrollbars,status,width=800,height=450");
+        d = w.document;
+        d.write("<pre>");
+        d.write(html_escape(output_list[id]));
+        d.write("\n");
+        d.write("<a href='javascript:window.close()'>close</a>\n");
+        d.write("</pre>\n");
+        d.close();
+    }
+    */
+    --></script>
+    <div id="div_base">
+        
+    <div class='page-header'>
+        <h1>接口自动化测试报告</h1>
+    <p class='attribute'><strong>开始时间:</strong> 2021-08-09 16:09:06</p>
+<p class='attribute'><strong>运行时长:</strong> 0:00:00.298207</p>
+<p class='attribute'><strong>状态:</strong> 通过 5 失败 1</p>
+
+    </div>
+    <div style="float: left;width:50%;"><p class='description'>运行环境：环境：windows 10 浏览器：chrome 语言： Python3</p></div>
+    <div id="chart" style="width:50%;height:400px;float:left;"></div>
+
+        
+    <div class="btn-group btn-group-sm">
+        <button class="btn btn-default" onclick='javascript:showCase(0)'>总结</button>
+        <button class="btn btn-default" onclick='javascript:showCase(1)'>失败</button>
+        <button class="btn btn-default" onclick='javascript:showCase(2)'>全部</button>
+    </div>
+    <p></p>
+    <table id='result_table' class="table table-bordered">
+        <colgroup>
+            <col align='left' />
+            <col align='right' />
+            <col align='right' />
+            <col align='right' />
+            <col align='right' />
+            <col align='right' />
+        </colgroup>
+        <tr id='header_row'>
+            <td>测试套件/测试用例</td>
+            <td>总数</td>
+            <td>通过</td>
+            <td>失败</td>
+            <td>错误</td>
+            <td>查看</td>
+        </tr>
+        
+    <tr class='passClass'>
+        <td>distributor_wholeprocess_test.GetDepartureCity:  获取出发城市 </td>
+        <td>2</td>
+        <td>2</td>
+        <td>0</td>
+        <td>0</td>
+        <td><a href="javascript:showClassDetail('c1',2)">详情</a></td>
+    </tr>
+
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_1_get_city_all_null: 所有参数为空</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+        通过</a>
+    <div id='div_pt1.1' class="popup_window">
+        <pre>pt1.1: [32m[2021-08-09 16:09:06,405] [logger.py:95] [logger:__console] [INFO]- ###########################开始执行测试###########################[0m
+[32m[2021-08-09 16:09:06,435] [logger.py:95] [logger:__console] [INFO]- 接口返回数据:{'code': '401', 'msg': '没有权限', 'data': None, 'success': False}[0m
+{'code': '401', 'msg': '没有权限', 'data': None, 'success': False}
+[32m[2021-08-09 16:09:06,436] [logger.py:95] [logger:__console] [INFO]- ###########################测试执行结束###########################[0m
+</pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr id='pt1.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_2_get_city_all: 获取所有出发城市</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.2')" >
+        通过</a>
+    <div id='div_pt1.2' class="popup_window">
+        <pre>pt1.2: [32m[2021-08-09 16:09:06,436] [logger.py:95] [logger:__console] [INFO]- ###########################开始执行测试###########################[0m
+1628496546438
+c93de440948f29cefd4539ea1563d94f
+[32m[2021-08-09 16:09:06,505] [logger.py:95] [logger:__console] [INFO]- 接口返回数据:{'code': '200', 'msg': '获取成功', 'data': {'cityList': [{'cityId': 3664, 'cityName': '番禺'}, {'cityId': 3426, 'cityName': '金州'}, {'cityId': 142313, 'cityName': '桂林市区'}, {'cityId': 816, 'cityName': '博罗'}, {'cityId': 187, 'cityName': '潜江市'}, {'cityId': 221, 'cityName': '常州'}, {'cityId': 3650, 'cityName': '越秀'}, {'cityId': 142432, 'cityName': '大连市区'}, {'cityId': 142291, 'cityName': '广州市区'}, {'cityId': 142314, 'cityName': '贵港市区'}, {'cityId': 521, 'cityName': '靖江'}, {'cityId': 68, 'cityName': '酒泉'}, {'cityId': 3730, 'cityName': '武侯'}, {'cityId': 142406, 'cityName': '淮安市区'}, {'cityId': 184, 'cityName': '黄石'}, {'cityId': 817, 'cityName': ''}, {'cityId': 3743, 'cityName': '惠城'}, {'cityId': 2350, 'cityName': '会理'}, {'cityId': 108, 'cityName': '南宁'}, {'cityId': 88, 'cityName': '汕头'}, {'cityId': 1459, 'cityName': '京山'}, {'cityId': 3814, 'cityName': '顺德'}, {'cityId': 820, 'cityName': '龙门'}, {'cityId': 224, 'cityName': '南京'}, {'cityId': 72, 'cityName': '平凉'}, {'cityId': 348, 'cityName': '那曲'}, {'cityId': 142440, 'cityName': '沈阳市区'}, {'cityId': 2293, 'cityName': '双流'}, {'cityId': 3945, 'cityName': '吴中'}, {'cityId': 522, 'cityName': '泰兴'}, {'cityId': 53, 'cityName': '北京'}, {'cityId': 6325, 'cityName': '吴江'}, {'cityId': 4098, 'cityName': '青山'}, {'cityId': 61, 'cityName': '厦门'}, {'cityId': 394, 'cityName': '重庆'}, {'cityId': 4071, 'cityName': '大渡口'}], 'stationList': [{'stationName': '(临时)南站东出站口汽车站负一层C28', 'stationId': 344, 'cityName': '番禺', 'cityId': 3664}, {'stationName': '八一路', 'stationId': 24742, 'cityName': '金州', 'cityId': 3426}, {'stationName': '北极广场', 'stationId': 26835, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '博罗县人民医院公交站', 'stationId': 27620, 'cityName': '博罗', 'cityId': 816}, {'stationName': '测试站点', 'stationId': 15650, 'cityName': '潜江市', 'cityId': 187}, {'stationName': '常州武进汽车客运站', 'stationId': 21747, 'cityName': '常州', 'cityId': 221}, {'stationName': '城北市场公交站', 'stationId': 27621, 'cityName': '博罗', 'cityId': 816}, {'stationName': '达信大厦', 'stationId': 26659, 'cityName': '越秀', 'cityId': 3650}, {'stationName': '大连', 'stationId': 24724, 'cityName': '大连市区', 'cityId': 142432}, {'stationName': '大连火车站', 'stationId': 24748, 'cityName': '大连市区', 'cityId': 142432}, {'stationName': '观音阁', 'stationId': 26836, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '广州广元客运站', 'stationId': 12146, 'cityName': '广州市区', 'cityId': 142291}, {'stationName': '广州客运站', 'stationId': 372, 'cityName': '越秀', 'cityId': 3650}, {'stationName': '广州南站', 'stationId': 379, 'cityName': '番禺', 'cityId': 3664}, {'stationName': '广州汽车客运站', 'stationId': 339, 'cityName': '越秀', 'cityId': 3650}, {'stationName': '广州市番禺区左边村公交站', 'stationId': 30114, 'cityName': '广州市区', 'cityId': 142291}, {'stationName': '桂客北站', 'stationId': 23029, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '桂林北站', 'stationId': 8231, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '贵港西', 'stationId': 27562, 'cityName': '贵港市区', 'cityId': 142314}, {'stationName': '洪湖客运站2', 'stationId': 532, 'cityName': '靖江', 'cityId': 521}, {'stationName': '花卉博览园', 'stationId': 11515, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '华西坝站', 'stationId': 28128, 'cityName': '武侯', 'cityId': 3730}, {'stationName': '淮安高铁东站', 'stationId': 28282, 'cityName': '淮安市区', 'cityId': 142406}, {'stationName': '环路跳伞塔数码广场站', 'stationId': 28127, 'cityName': '武侯', 'cityId': 3730}, {'stationName': '黄石万达购物中心', 'stationId': 21191, 'cityName': '黄石', 'cityId': 184}, {'stationName': '惠东诚东医院', 'stationId': 27212, 'cityName': '', 'cityId': 817}, {'stationName': '惠州汽车客运站', 'stationId': 29644, 'cityName': '惠城', 'cityId': 3743}, {'stationName': '会理', 'stationId': 9547, 'cityName': '会理', 'cityId': 2350}, {'stationName': '江口', 'stationId': 27563, 'cityName': '贵港市区', 'cityId': 142314}, {'stationName': '交通轨道大厦', 'stationId': 21990, 'cityName': '南宁', 'cityId': 108}, {'stationName': '交通局', 'stationId': 24746, 'cityName': '金州', 'cityId': 3426}, {'stationName': '金华小区', 'stationId': 24745, 'cityName': '金州', 'cityId': 3426}, {'stationName': '金塔胡杨林景区', 'stationId': 7029, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '金泰·瑞和园', 'stationId': 27622, 'cityName': '博罗', 'cityId': 816}, {'stationName': '金灶高速口', 'stationId': 12147, 'cityName': '汕头', 'cityId': 88}, {'stationName': '金州公安局', 'stationId': 24743, 'cityName': '金州', 'cityId': 3426}, {'stationName': '金州中心汽车站', 'stationId': 24741, 'cityName': '金州', 'cityId': 3426}, {'stationName': '京山体育馆', 'stationId': 14932, 'cityName': '京山', 'cityId': 1459}, {'stationName': '靖江人民医院', 'stationId': 332, 'cityName': '靖江', 'cityId': 521}, {'stationName': '靖江市体育中心', 'stationId': 333, 'cityName': '靖江', 'cityId': 521}, {'stationName': '酒泉测试客运站', 'stationId': 27875, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉任意点', 'stationId': 10678, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉市果园镇', 'stationId': 7829, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉市政府', 'stationId': 7832, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉中学', 'stationId': 7912, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '均安镇花园', 'stationId': 373, 'cityName': '顺德', 'cityId': 3814}, {'stationName': '龙门汽车客运站', 'stationId': 27738, 'cityName': '龙门', 'cityId': 820}, {'stationName': '龙门县龙华镇', 'stationId': 27736, 'cityName': '龙门', 'cityId': 820}, {'stationName': '南京市区', 'stationId': 29984, 'cityName': '南京', 'cityId': 224}, {'stationName': '南溪山公园', 'stationId': 26454, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '南溪医院', 'stationId': 8230, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '平凉汽车站', 'stationId': 7630, 'cityName': '平凉', 'cityId': 72}, {'stationName': '汽车总站旧址', 'stationId': 23028, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '人民南路四段美领馆站', 'stationId': 28124, 'cityName': '武侯', 'cityId': 3730}, {'stationName': '色尼小区', 'stationId': 11620, 'cityName': '那曲', 'cityId': 348}, {'stationName': '沈阳桃仙机场', 'stationId': 28738, 'cityName': '沈阳市区', 'cityId': 142440}, {'stationName': '双流国际机场', 'stationId': 28125, 'cityName': '双流', 'cityId': 2293}, {'stationName': '双月湾享海酒店', 'stationId': 29651, 'cityName': '惠东', 'cityId': 817}, {'stationName': '苏州北站', 'stationId': 409, 'cityName': '吴中', 'cityId': 3945}, {'stationName': '苏州南门汽车客运站', 'stationId': 220, 'cityName': '吴中', 'cityId': 3945}, {'stationName': '泰兴市区', 'stationId': 8917, 'cityName': '泰兴', 'cityId': 522}, {'stationName': '天安门', 'stationId': 1262, 'cityName': '北京', 'cityId': 53}, {'stationName': '天河客运站', 'stationId': 26658, 'cityName': '广州市区', 'cityId': 142291}, {'stationName': '瓦窑', 'stationId': 26739, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '文化技术学校', 'stationId': 27206, 'cityName': '惠东', 'cityId': 817}, {'stationName': '吴江公园', 'stationId': 8737, 'cityName': '吴江', 'cityId': 6325}, {'stationName': '吴江站', 'stationId': 29027, 'cityName': '吴江', 'cityId': 6325}, {'stationName': '吴中', 'stationId': 27186, 'cityName': '吴中', 'cityId': 3945}, {'stationName': '武仙直通', 'stationId': 16820, 'cityName': '青山', 'cityId': 4098}, {'stationName': '西站', 'stationId': 26834, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '厦门北站', 'stationId': 10592, 'cityName': '厦门', 'cityId': 61}, {'stationName': '相应广场', 'stationId': 24744, 'cityName': '金州', 'cityId': 3426}, {'stationName': '香炉礁', 'stationId': 24747, 'cityName': '金州', 'cityId': 3426}, {'stationName': '小麻雀平山物流基地', 'stationId': 23027, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '杨春湖客运站', 'stationId': 16876, 'cityName': '青山', 'cityId': 4098}, {'stationName': '永汉', 'stationId': 27730, 'cityName': '龙门', 'cityId': 820}, {'stationName': '渝中', 'stationId': 29875, 'cityName': '重庆', 'cityId': 394}, {'stationName': '重庆市大渡口区八桥镇爱情公园', 'stationId': 29878, 'cityName': '大渡口', 'cityId': 4071}, {'stationName': '巽寮湾海公园', 'stationId': 29650, 'cityName': '惠东', 'cityId': 817}], 'cityStationList': None}, 'success': True}[0m
+{'code': '200', 'msg': '获取成功', 'data': {'cityList': [{'cityId': 3664, 'cityName': '番禺'}, {'cityId': 3426, 'cityName': '金州'}, {'cityId': 142313, 'cityName': '桂林市区'}, {'cityId': 816, 'cityName': '博罗'}, {'cityId': 187, 'cityName': '潜江市'}, {'cityId': 221, 'cityName': '常州'}, {'cityId': 3650, 'cityName': '越秀'}, {'cityId': 142432, 'cityName': '大连市区'}, {'cityId': 142291, 'cityName': '广州市区'}, {'cityId': 142314, 'cityName': '贵港市区'}, {'cityId': 521, 'cityName': '靖江'}, {'cityId': 68, 'cityName': '酒泉'}, {'cityId': 3730, 'cityName': '武侯'}, {'cityId': 142406, 'cityName': '淮安市区'}, {'cityId': 184, 'cityName': '黄石'}, {'cityId': 817, 'cityName': ''}, {'cityId': 3743, 'cityName': '惠城'}, {'cityId': 2350, 'cityName': '会理'}, {'cityId': 108, 'cityName': '南宁'}, {'cityId': 88, 'cityName': '汕头'}, {'cityId': 1459, 'cityName': '京山'}, {'cityId': 3814, 'cityName': '顺德'}, {'cityId': 820, 'cityName': '龙门'}, {'cityId': 224, 'cityName': '南京'}, {'cityId': 72, 'cityName': '平凉'}, {'cityId': 348, 'cityName': '那曲'}, {'cityId': 142440, 'cityName': '沈阳市区'}, {'cityId': 2293, 'cityName': '双流'}, {'cityId': 3945, 'cityName': '吴中'}, {'cityId': 522, 'cityName': '泰兴'}, {'cityId': 53, 'cityName': '北京'}, {'cityId': 6325, 'cityName': '吴江'}, {'cityId': 4098, 'cityName': '青山'}, {'cityId': 61, 'cityName': '厦门'}, {'cityId': 394, 'cityName': '重庆'}, {'cityId': 4071, 'cityName': '大渡口'}], 'stationList': [{'stationName': '(临时)南站东出站口汽车站负一层C28', 'stationId': 344, 'cityName': '番禺', 'cityId': 3664}, {'stationName': '八一路', 'stationId': 24742, 'cityName': '金州', 'cityId': 3426}, {'stationName': '北极广场', 'stationId': 26835, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '博罗县人民医院公交站', 'stationId': 27620, 'cityName': '博罗', 'cityId': 816}, {'stationName': '测试站点', 'stationId': 15650, 'cityName': '潜江市', 'cityId': 187}, {'stationName': '常州武进汽车客运站', 'stationId': 21747, 'cityName': '常州', 'cityId': 221}, {'stationName': '城北市场公交站', 'stationId': 27621, 'cityName': '博罗', 'cityId': 816}, {'stationName': '达信大厦', 'stationId': 26659, 'cityName': '越秀', 'cityId': 3650}, {'stationName': '大连', 'stationId': 24724, 'cityName': '大连市区', 'cityId': 142432}, {'stationName': '大连火车站', 'stationId': 24748, 'cityName': '大连市区', 'cityId': 142432}, {'stationName': '观音阁', 'stationId': 26836, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '广州广元客运站', 'stationId': 12146, 'cityName': '广州市区', 'cityId': 142291}, {'stationName': '广州客运站', 'stationId': 372, 'cityName': '越秀', 'cityId': 3650}, {'stationName': '广州南站', 'stationId': 379, 'cityName': '番禺', 'cityId': 3664}, {'stationName': '广州汽车客运站', 'stationId': 339, 'cityName': '越秀', 'cityId': 3650}, {'stationName': '广州市番禺区左边村公交站', 'stationId': 30114, 'cityName': '广州市区', 'cityId': 142291}, {'stationName': '桂客北站', 'stationId': 23029, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '桂林北站', 'stationId': 8231, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '贵港西', 'stationId': 27562, 'cityName': '贵港市区', 'cityId': 142314}, {'stationName': '洪湖客运站2', 'stationId': 532, 'cityName': '靖江', 'cityId': 521}, {'stationName': '花卉博览园', 'stationId': 11515, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '华西坝站', 'stationId': 28128, 'cityName': '武侯', 'cityId': 3730}, {'stationName': '淮安高铁东站', 'stationId': 28282, 'cityName': '淮安市区', 'cityId': 142406}, {'stationName': '环路跳伞塔数码广场站', 'stationId': 28127, 'cityName': '武侯', 'cityId': 3730}, {'stationName': '黄石万达购物中心', 'stationId': 21191, 'cityName': '黄石', 'cityId': 184}, {'stationName': '惠东诚东医院', 'stationId': 27212, 'cityName': '', 'cityId': 817}, {'stationName': '惠州汽车客运站', 'stationId': 29644, 'cityName': '惠城', 'cityId': 3743}, {'stationName': '会理', 'stationId': 9547, 'cityName': '会理', 'cityId': 2350}, {'stationName': '江口', 'stationId': 27563, 'cityName': '贵港市区', 'cityId': 142314}, {'stationName': '交通轨道大厦', 'stationId': 21990, 'cityName': '南宁', 'cityId': 108}, {'stationName': '交通局', 'stationId': 24746, 'cityName': '金州', 'cityId': 3426}, {'stationName': '金华小区', 'stationId': 24745, 'cityName': '金州', 'cityId': 3426}, {'stationName': '金塔胡杨林景区', 'stationId': 7029, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '金泰·瑞和园', 'stationId': 27622, 'cityName': '博罗', 'cityId': 816}, {'stationName': '金灶高速口', 'stationId': 12147, 'cityName': '汕头', 'cityId': 88}, {'stationName': '金州公安局', 'stationId': 24743, 'cityName': '金州', 'cityId': 3426}, {'stationName': '金州中心汽车站', 'stationId': 24741, 'cityName': '金州', 'cityId': 3426}, {'stationName': '京山体育馆', 'stationId': 14932, 'cityName': '京山', 'cityId': 1459}, {'stationName': '靖江人民医院', 'stationId': 332, 'cityName': '靖江', 'cityId': 521}, {'stationName': '靖江市体育中心', 'stationId': 333, 'cityName': '靖江', 'cityId': 521}, {'stationName': '酒泉测试客运站', 'stationId': 27875, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉任意点', 'stationId': 10678, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉市果园镇', 'stationId': 7829, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉市政府', 'stationId': 7832, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉中学', 'stationId': 7912, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '均安镇花园', 'stationId': 373, 'cityName': '顺德', 'cityId': 3814}, {'stationName': '龙门汽车客运站', 'stationId': 27738, 'cityName': '龙门', 'cityId': 820}, {'stationName': '龙门县龙华镇', 'stationId': 27736, 'cityName': '龙门', 'cityId': 820}, {'stationName': '南京市区', 'stationId': 29984, 'cityName': '南京', 'cityId': 224}, {'stationName': '南溪山公园', 'stationId': 26454, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '南溪医院', 'stationId': 8230, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '平凉汽车站', 'stationId': 7630, 'cityName': '平凉', 'cityId': 72}, {'stationName': '汽车总站旧址', 'stationId': 23028, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '人民南路四段美领馆站', 'stationId': 28124, 'cityName': '武侯', 'cityId': 3730}, {'stationName': '色尼小区', 'stationId': 11620, 'cityName': '那曲', 'cityId': 348}, {'stationName': '沈阳桃仙机场', 'stationId': 28738, 'cityName': '沈阳市区', 'cityId': 142440}, {'stationName': '双流国际机场', 'stationId': 28125, 'cityName': '双流', 'cityId': 2293}, {'stationName': '双月湾享海酒店', 'stationId': 29651, 'cityName': '惠东', 'cityId': 817}, {'stationName': '苏州北站', 'stationId': 409, 'cityName': '吴中', 'cityId': 3945}, {'stationName': '苏州南门汽车客运站', 'stationId': 220, 'cityName': '吴中', 'cityId': 3945}, {'stationName': '泰兴市区', 'stationId': 8917, 'cityName': '泰兴', 'cityId': 522}, {'stationName': '天安门', 'stationId': 1262, 'cityName': '北京', 'cityId': 53}, {'stationName': '天河客运站', 'stationId': 26658, 'cityName': '广州市区', 'cityId': 142291}, {'stationName': '瓦窑', 'stationId': 26739, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '文化技术学校', 'stationId': 27206, 'cityName': '惠东', 'cityId': 817}, {'stationName': '吴江公园', 'stationId': 8737, 'cityName': '吴江', 'cityId': 6325}, {'stationName': '吴江站', 'stationId': 29027, 'cityName': '吴江', 'cityId': 6325}, {'stationName': '吴中', 'stationId': 27186, 'cityName': '吴中', 'cityId': 3945}, {'stationName': '武仙直通', 'stationId': 16820, 'cityName': '青山', 'cityId': 4098}, {'stationName': '西站', 'stationId': 26834, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '厦门北站', 'stationId': 10592, 'cityName': '厦门', 'cityId': 61}, {'stationName': '相应广场', 'stationId': 24744, 'cityName': '金州', 'cityId': 3426}, {'stationName': '香炉礁', 'stationId': 24747, 'cityName': '金州', 'cityId': 3426}, {'stationName': '小麻雀平山物流基地', 'stationId': 23027, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '杨春湖客运站', 'stationId': 16876, 'cityName': '青山', 'cityId': 4098}, {'stationName': '永汉', 'stationId': 27730, 'cityName': '龙门', 'cityId': 820}, {'stationName': '渝中', 'stationId': 29875, 'cityName': '重庆', 'cityId': 394}, {'stationName': '重庆市大渡口区八桥镇爱情公园', 'stationId': 29878, 'cityName': '大渡口', 'cityId': 4071}, {'stationName': '巽寮湾海公园', 'stationId': 29650, 'cityName': '惠东', 'cityId': 817}], 'cityStationList': None}, 'success': True}
+[32m[2021-08-09 16:09:06,506] [logger.py:95] [logger:__console] [INFO]- ###########################测试执行结束###########################[0m
+</pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+    <tr class='passClass'>
+        <td>get_city_test.GetDepartureCity:  获取出发城市 </td>
+        <td>2</td>
+        <td>2</td>
+        <td>0</td>
+        <td>0</td>
+        <td><a href="javascript:showClassDetail('c2',2)">详情</a></td>
+    </tr>
+
+<tr id='pt2.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_1_get_city_all_null: 所有参数为空</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.1')" >
+        通过</a>
+    <div id='div_pt2.1' class="popup_window">
+        <pre>pt2.1: [32m[2021-08-09 16:09:06,506] [logger.py:95] [logger:__console] [INFO]- ###########################开始执行测试###########################[0m
+[32m[2021-08-09 16:09:06,536] [logger.py:95] [logger:__console] [INFO]- 接口返回数据:{'code': '401', 'msg': '没有权限', 'data': None, 'success': False}[0m
+{'code': '401', 'msg': '没有权限', 'data': None, 'success': False}
+[32m[2021-08-09 16:09:06,537] [logger.py:95] [logger:__console] [INFO]- ###########################测试执行结束###########################[0m
+</pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr id='pt2.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_2_get_city_all: 获取所有出发城市</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.2')" >
+        通过</a>
+    <div id='div_pt2.2' class="popup_window">
+        <pre>pt2.2: [32m[2021-08-09 16:09:06,537] [logger.py:95] [logger:__console] [INFO]- ###########################开始执行测试###########################[0m
+1628496546538
+1a664f37e28d7be2ee0540145e7e4ab2
+[32m[2021-08-09 16:09:06,605] [logger.py:95] [logger:__console] [INFO]- 接口返回数据:{'code': '200', 'msg': '获取成功', 'data': {'cityList': [{'cityId': 3664, 'cityName': '番禺'}, {'cityId': 3426, 'cityName': '金州'}, {'cityId': 142313, 'cityName': '桂林市区'}, {'cityId': 816, 'cityName': '博罗'}, {'cityId': 187, 'cityName': '潜江市'}, {'cityId': 221, 'cityName': '常州'}, {'cityId': 3650, 'cityName': '越秀'}, {'cityId': 142432, 'cityName': '大连市区'}, {'cityId': 142291, 'cityName': '广州市区'}, {'cityId': 142314, 'cityName': '贵港市区'}, {'cityId': 521, 'cityName': '靖江'}, {'cityId': 68, 'cityName': '酒泉'}, {'cityId': 3730, 'cityName': '武侯'}, {'cityId': 142406, 'cityName': '淮安市区'}, {'cityId': 184, 'cityName': '黄石'}, {'cityId': 817, 'cityName': ''}, {'cityId': 3743, 'cityName': '惠城'}, {'cityId': 2350, 'cityName': '会理'}, {'cityId': 108, 'cityName': '南宁'}, {'cityId': 88, 'cityName': '汕头'}, {'cityId': 1459, 'cityName': '京山'}, {'cityId': 3814, 'cityName': '顺德'}, {'cityId': 820, 'cityName': '龙门'}, {'cityId': 224, 'cityName': '南京'}, {'cityId': 72, 'cityName': '平凉'}, {'cityId': 348, 'cityName': '那曲'}, {'cityId': 142440, 'cityName': '沈阳市区'}, {'cityId': 2293, 'cityName': '双流'}, {'cityId': 3945, 'cityName': '吴中'}, {'cityId': 522, 'cityName': '泰兴'}, {'cityId': 53, 'cityName': '北京'}, {'cityId': 6325, 'cityName': '吴江'}, {'cityId': 4098, 'cityName': '青山'}, {'cityId': 61, 'cityName': '厦门'}, {'cityId': 394, 'cityName': '重庆'}, {'cityId': 4071, 'cityName': '大渡口'}], 'stationList': [{'stationName': '(临时)南站东出站口汽车站负一层C28', 'stationId': 344, 'cityName': '番禺', 'cityId': 3664}, {'stationName': '八一路', 'stationId': 24742, 'cityName': '金州', 'cityId': 3426}, {'stationName': '北极广场', 'stationId': 26835, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '博罗县人民医院公交站', 'stationId': 27620, 'cityName': '博罗', 'cityId': 816}, {'stationName': '测试站点', 'stationId': 15650, 'cityName': '潜江市', 'cityId': 187}, {'stationName': '常州武进汽车客运站', 'stationId': 21747, 'cityName': '常州', 'cityId': 221}, {'stationName': '城北市场公交站', 'stationId': 27621, 'cityName': '博罗', 'cityId': 816}, {'stationName': '达信大厦', 'stationId': 26659, 'cityName': '越秀', 'cityId': 3650}, {'stationName': '大连', 'stationId': 24724, 'cityName': '大连市区', 'cityId': 142432}, {'stationName': '大连火车站', 'stationId': 24748, 'cityName': '大连市区', 'cityId': 142432}, {'stationName': '观音阁', 'stationId': 26836, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '广州广元客运站', 'stationId': 12146, 'cityName': '广州市区', 'cityId': 142291}, {'stationName': '广州客运站', 'stationId': 372, 'cityName': '越秀', 'cityId': 3650}, {'stationName': '广州南站', 'stationId': 379, 'cityName': '番禺', 'cityId': 3664}, {'stationName': '广州汽车客运站', 'stationId': 339, 'cityName': '越秀', 'cityId': 3650}, {'stationName': '广州市番禺区左边村公交站', 'stationId': 30114, 'cityName': '广州市区', 'cityId': 142291}, {'stationName': '桂客北站', 'stationId': 23029, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '桂林北站', 'stationId': 8231, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '贵港西', 'stationId': 27562, 'cityName': '贵港市区', 'cityId': 142314}, {'stationName': '洪湖客运站2', 'stationId': 532, 'cityName': '靖江', 'cityId': 521}, {'stationName': '花卉博览园', 'stationId': 11515, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '华西坝站', 'stationId': 28128, 'cityName': '武侯', 'cityId': 3730}, {'stationName': '淮安高铁东站', 'stationId': 28282, 'cityName': '淮安市区', 'cityId': 142406}, {'stationName': '环路跳伞塔数码广场站', 'stationId': 28127, 'cityName': '武侯', 'cityId': 3730}, {'stationName': '黄石万达购物中心', 'stationId': 21191, 'cityName': '黄石', 'cityId': 184}, {'stationName': '惠东诚东医院', 'stationId': 27212, 'cityName': '', 'cityId': 817}, {'stationName': '惠州汽车客运站', 'stationId': 29644, 'cityName': '惠城', 'cityId': 3743}, {'stationName': '会理', 'stationId': 9547, 'cityName': '会理', 'cityId': 2350}, {'stationName': '江口', 'stationId': 27563, 'cityName': '贵港市区', 'cityId': 142314}, {'stationName': '交通轨道大厦', 'stationId': 21990, 'cityName': '南宁', 'cityId': 108}, {'stationName': '交通局', 'stationId': 24746, 'cityName': '金州', 'cityId': 3426}, {'stationName': '金华小区', 'stationId': 24745, 'cityName': '金州', 'cityId': 3426}, {'stationName': '金塔胡杨林景区', 'stationId': 7029, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '金泰·瑞和园', 'stationId': 27622, 'cityName': '博罗', 'cityId': 816}, {'stationName': '金灶高速口', 'stationId': 12147, 'cityName': '汕头', 'cityId': 88}, {'stationName': '金州公安局', 'stationId': 24743, 'cityName': '金州', 'cityId': 3426}, {'stationName': '金州中心汽车站', 'stationId': 24741, 'cityName': '金州', 'cityId': 3426}, {'stationName': '京山体育馆', 'stationId': 14932, 'cityName': '京山', 'cityId': 1459}, {'stationName': '靖江人民医院', 'stationId': 332, 'cityName': '靖江', 'cityId': 521}, {'stationName': '靖江市体育中心', 'stationId': 333, 'cityName': '靖江', 'cityId': 521}, {'stationName': '酒泉测试客运站', 'stationId': 27875, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉任意点', 'stationId': 10678, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉市果园镇', 'stationId': 7829, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉市政府', 'stationId': 7832, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉中学', 'stationId': 7912, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '均安镇花园', 'stationId': 373, 'cityName': '顺德', 'cityId': 3814}, {'stationName': '龙门汽车客运站', 'stationId': 27738, 'cityName': '龙门', 'cityId': 820}, {'stationName': '龙门县龙华镇', 'stationId': 27736, 'cityName': '龙门', 'cityId': 820}, {'stationName': '南京市区', 'stationId': 29984, 'cityName': '南京', 'cityId': 224}, {'stationName': '南溪山公园', 'stationId': 26454, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '南溪医院', 'stationId': 8230, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '平凉汽车站', 'stationId': 7630, 'cityName': '平凉', 'cityId': 72}, {'stationName': '汽车总站旧址', 'stationId': 23028, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '人民南路四段美领馆站', 'stationId': 28124, 'cityName': '武侯', 'cityId': 3730}, {'stationName': '色尼小区', 'stationId': 11620, 'cityName': '那曲', 'cityId': 348}, {'stationName': '沈阳桃仙机场', 'stationId': 28738, 'cityName': '沈阳市区', 'cityId': 142440}, {'stationName': '双流国际机场', 'stationId': 28125, 'cityName': '双流', 'cityId': 2293}, {'stationName': '双月湾享海酒店', 'stationId': 29651, 'cityName': '惠东', 'cityId': 817}, {'stationName': '苏州北站', 'stationId': 409, 'cityName': '吴中', 'cityId': 3945}, {'stationName': '苏州南门汽车客运站', 'stationId': 220, 'cityName': '吴中', 'cityId': 3945}, {'stationName': '泰兴市区', 'stationId': 8917, 'cityName': '泰兴', 'cityId': 522}, {'stationName': '天安门', 'stationId': 1262, 'cityName': '北京', 'cityId': 53}, {'stationName': '天河客运站', 'stationId': 26658, 'cityName': '广州市区', 'cityId': 142291}, {'stationName': '瓦窑', 'stationId': 26739, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '文化技术学校', 'stationId': 27206, 'cityName': '惠东', 'cityId': 817}, {'stationName': '吴江公园', 'stationId': 8737, 'cityName': '吴江', 'cityId': 6325}, {'stationName': '吴江站', 'stationId': 29027, 'cityName': '吴江', 'cityId': 6325}, {'stationName': '吴中', 'stationId': 27186, 'cityName': '吴中', 'cityId': 3945}, {'stationName': '武仙直通', 'stationId': 16820, 'cityName': '青山', 'cityId': 4098}, {'stationName': '西站', 'stationId': 26834, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '厦门北站', 'stationId': 10592, 'cityName': '厦门', 'cityId': 61}, {'stationName': '相应广场', 'stationId': 24744, 'cityName': '金州', 'cityId': 3426}, {'stationName': '香炉礁', 'stationId': 24747, 'cityName': '金州', 'cityId': 3426}, {'stationName': '小麻雀平山物流基地', 'stationId': 23027, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '杨春湖客运站', 'stationId': 16876, 'cityName': '青山', 'cityId': 4098}, {'stationName': '永汉', 'stationId': 27730, 'cityName': '龙门', 'cityId': 820}, {'stationName': '渝中', 'stationId': 29875, 'cityName': '重庆', 'cityId': 394}, {'stationName': '重庆市大渡口区八桥镇爱情公园', 'stationId': 29878, 'cityName': '大渡口', 'cityId': 4071}, {'stationName': '巽寮湾海公园', 'stationId': 29650, 'cityName': '惠东', 'cityId': 817}], 'cityStationList': None}, 'success': True}[0m
+{'code': '200', 'msg': '获取成功', 'data': {'cityList': [{'cityId': 3664, 'cityName': '番禺'}, {'cityId': 3426, 'cityName': '金州'}, {'cityId': 142313, 'cityName': '桂林市区'}, {'cityId': 816, 'cityName': '博罗'}, {'cityId': 187, 'cityName': '潜江市'}, {'cityId': 221, 'cityName': '常州'}, {'cityId': 3650, 'cityName': '越秀'}, {'cityId': 142432, 'cityName': '大连市区'}, {'cityId': 142291, 'cityName': '广州市区'}, {'cityId': 142314, 'cityName': '贵港市区'}, {'cityId': 521, 'cityName': '靖江'}, {'cityId': 68, 'cityName': '酒泉'}, {'cityId': 3730, 'cityName': '武侯'}, {'cityId': 142406, 'cityName': '淮安市区'}, {'cityId': 184, 'cityName': '黄石'}, {'cityId': 817, 'cityName': ''}, {'cityId': 3743, 'cityName': '惠城'}, {'cityId': 2350, 'cityName': '会理'}, {'cityId': 108, 'cityName': '南宁'}, {'cityId': 88, 'cityName': '汕头'}, {'cityId': 1459, 'cityName': '京山'}, {'cityId': 3814, 'cityName': '顺德'}, {'cityId': 820, 'cityName': '龙门'}, {'cityId': 224, 'cityName': '南京'}, {'cityId': 72, 'cityName': '平凉'}, {'cityId': 348, 'cityName': '那曲'}, {'cityId': 142440, 'cityName': '沈阳市区'}, {'cityId': 2293, 'cityName': '双流'}, {'cityId': 3945, 'cityName': '吴中'}, {'cityId': 522, 'cityName': '泰兴'}, {'cityId': 53, 'cityName': '北京'}, {'cityId': 6325, 'cityName': '吴江'}, {'cityId': 4098, 'cityName': '青山'}, {'cityId': 61, 'cityName': '厦门'}, {'cityId': 394, 'cityName': '重庆'}, {'cityId': 4071, 'cityName': '大渡口'}], 'stationList': [{'stationName': '(临时)南站东出站口汽车站负一层C28', 'stationId': 344, 'cityName': '番禺', 'cityId': 3664}, {'stationName': '八一路', 'stationId': 24742, 'cityName': '金州', 'cityId': 3426}, {'stationName': '北极广场', 'stationId': 26835, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '博罗县人民医院公交站', 'stationId': 27620, 'cityName': '博罗', 'cityId': 816}, {'stationName': '测试站点', 'stationId': 15650, 'cityName': '潜江市', 'cityId': 187}, {'stationName': '常州武进汽车客运站', 'stationId': 21747, 'cityName': '常州', 'cityId': 221}, {'stationName': '城北市场公交站', 'stationId': 27621, 'cityName': '博罗', 'cityId': 816}, {'stationName': '达信大厦', 'stationId': 26659, 'cityName': '越秀', 'cityId': 3650}, {'stationName': '大连', 'stationId': 24724, 'cityName': '大连市区', 'cityId': 142432}, {'stationName': '大连火车站', 'stationId': 24748, 'cityName': '大连市区', 'cityId': 142432}, {'stationName': '观音阁', 'stationId': 26836, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '广州广元客运站', 'stationId': 12146, 'cityName': '广州市区', 'cityId': 142291}, {'stationName': '广州客运站', 'stationId': 372, 'cityName': '越秀', 'cityId': 3650}, {'stationName': '广州南站', 'stationId': 379, 'cityName': '番禺', 'cityId': 3664}, {'stationName': '广州汽车客运站', 'stationId': 339, 'cityName': '越秀', 'cityId': 3650}, {'stationName': '广州市番禺区左边村公交站', 'stationId': 30114, 'cityName': '广州市区', 'cityId': 142291}, {'stationName': '桂客北站', 'stationId': 23029, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '桂林北站', 'stationId': 8231, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '贵港西', 'stationId': 27562, 'cityName': '贵港市区', 'cityId': 142314}, {'stationName': '洪湖客运站2', 'stationId': 532, 'cityName': '靖江', 'cityId': 521}, {'stationName': '花卉博览园', 'stationId': 11515, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '华西坝站', 'stationId': 28128, 'cityName': '武侯', 'cityId': 3730}, {'stationName': '淮安高铁东站', 'stationId': 28282, 'cityName': '淮安市区', 'cityId': 142406}, {'stationName': '环路跳伞塔数码广场站', 'stationId': 28127, 'cityName': '武侯', 'cityId': 3730}, {'stationName': '黄石万达购物中心', 'stationId': 21191, 'cityName': '黄石', 'cityId': 184}, {'stationName': '惠东诚东医院', 'stationId': 27212, 'cityName': '', 'cityId': 817}, {'stationName': '惠州汽车客运站', 'stationId': 29644, 'cityName': '惠城', 'cityId': 3743}, {'stationName': '会理', 'stationId': 9547, 'cityName': '会理', 'cityId': 2350}, {'stationName': '江口', 'stationId': 27563, 'cityName': '贵港市区', 'cityId': 142314}, {'stationName': '交通轨道大厦', 'stationId': 21990, 'cityName': '南宁', 'cityId': 108}, {'stationName': '交通局', 'stationId': 24746, 'cityName': '金州', 'cityId': 3426}, {'stationName': '金华小区', 'stationId': 24745, 'cityName': '金州', 'cityId': 3426}, {'stationName': '金塔胡杨林景区', 'stationId': 7029, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '金泰·瑞和园', 'stationId': 27622, 'cityName': '博罗', 'cityId': 816}, {'stationName': '金灶高速口', 'stationId': 12147, 'cityName': '汕头', 'cityId': 88}, {'stationName': '金州公安局', 'stationId': 24743, 'cityName': '金州', 'cityId': 3426}, {'stationName': '金州中心汽车站', 'stationId': 24741, 'cityName': '金州', 'cityId': 3426}, {'stationName': '京山体育馆', 'stationId': 14932, 'cityName': '京山', 'cityId': 1459}, {'stationName': '靖江人民医院', 'stationId': 332, 'cityName': '靖江', 'cityId': 521}, {'stationName': '靖江市体育中心', 'stationId': 333, 'cityName': '靖江', 'cityId': 521}, {'stationName': '酒泉测试客运站', 'stationId': 27875, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉任意点', 'stationId': 10678, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉市果园镇', 'stationId': 7829, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉市政府', 'stationId': 7832, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '酒泉中学', 'stationId': 7912, 'cityName': '酒泉', 'cityId': 68}, {'stationName': '均安镇花园', 'stationId': 373, 'cityName': '顺德', 'cityId': 3814}, {'stationName': '龙门汽车客运站', 'stationId': 27738, 'cityName': '龙门', 'cityId': 820}, {'stationName': '龙门县龙华镇', 'stationId': 27736, 'cityName': '龙门', 'cityId': 820}, {'stationName': '南京市区', 'stationId': 29984, 'cityName': '南京', 'cityId': 224}, {'stationName': '南溪山公园', 'stationId': 26454, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '南溪医院', 'stationId': 8230, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '平凉汽车站', 'stationId': 7630, 'cityName': '平凉', 'cityId': 72}, {'stationName': '汽车总站旧址', 'stationId': 23028, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '人民南路四段美领馆站', 'stationId': 28124, 'cityName': '武侯', 'cityId': 3730}, {'stationName': '色尼小区', 'stationId': 11620, 'cityName': '那曲', 'cityId': 348}, {'stationName': '沈阳桃仙机场', 'stationId': 28738, 'cityName': '沈阳市区', 'cityId': 142440}, {'stationName': '双流国际机场', 'stationId': 28125, 'cityName': '双流', 'cityId': 2293}, {'stationName': '双月湾享海酒店', 'stationId': 29651, 'cityName': '惠东', 'cityId': 817}, {'stationName': '苏州北站', 'stationId': 409, 'cityName': '吴中', 'cityId': 3945}, {'stationName': '苏州南门汽车客运站', 'stationId': 220, 'cityName': '吴中', 'cityId': 3945}, {'stationName': '泰兴市区', 'stationId': 8917, 'cityName': '泰兴', 'cityId': 522}, {'stationName': '天安门', 'stationId': 1262, 'cityName': '北京', 'cityId': 53}, {'stationName': '天河客运站', 'stationId': 26658, 'cityName': '广州市区', 'cityId': 142291}, {'stationName': '瓦窑', 'stationId': 26739, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '文化技术学校', 'stationId': 27206, 'cityName': '惠东', 'cityId': 817}, {'stationName': '吴江公园', 'stationId': 8737, 'cityName': '吴江', 'cityId': 6325}, {'stationName': '吴江站', 'stationId': 29027, 'cityName': '吴江', 'cityId': 6325}, {'stationName': '吴中', 'stationId': 27186, 'cityName': '吴中', 'cityId': 3945}, {'stationName': '武仙直通', 'stationId': 16820, 'cityName': '青山', 'cityId': 4098}, {'stationName': '西站', 'stationId': 26834, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '厦门北站', 'stationId': 10592, 'cityName': '厦门', 'cityId': 61}, {'stationName': '相应广场', 'stationId': 24744, 'cityName': '金州', 'cityId': 3426}, {'stationName': '香炉礁', 'stationId': 24747, 'cityName': '金州', 'cityId': 3426}, {'stationName': '小麻雀平山物流基地', 'stationId': 23027, 'cityName': '桂林市区', 'cityId': 142313}, {'stationName': '杨春湖客运站', 'stationId': 16876, 'cityName': '青山', 'cityId': 4098}, {'stationName': '永汉', 'stationId': 27730, 'cityName': '龙门', 'cityId': 820}, {'stationName': '渝中', 'stationId': 29875, 'cityName': '重庆', 'cityId': 394}, {'stationName': '重庆市大渡口区八桥镇爱情公园', 'stationId': 29878, 'cityName': '大渡口', 'cityId': 4071}, {'stationName': '巽寮湾海公园', 'stationId': 29650, 'cityName': '惠东', 'cityId': 817}], 'cityStationList': None}, 'success': True}
+[32m[2021-08-09 16:09:06,606] [logger.py:95] [logger:__console] [INFO]- ###########################测试执行结束###########################[0m
+</pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+    <tr class='failClass'>
+        <td>get_endcity_test.GetEndCity:  获取到达城市 </td>
+        <td>2</td>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td><a href="javascript:showClassDetail('c3',2)">详情</a></td>
+    </tr>
+
+<tr id='pt3.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_1_get_endcity_all_null: 所有参数为空</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.1')" >
+        通过</a>
+    <div id='div_pt3.1' class="popup_window">
+        <pre>pt3.1: [32m[2021-08-09 16:09:06,606] [logger.py:95] [logger:__console] [INFO]- ###########################开始执行测试###########################[0m
+[32m[2021-08-09 16:09:06,646] [logger.py:95] [logger:__console] [INFO]- 接口返回数据:{'code': '401', 'msg': '没有权限', 'data': None, 'success': False}[0m
+{'code': '401', 'msg': '没有权限', 'data': None, 'success': False}
+[32m[2021-08-09 16:09:06,646] [logger.py:95] [logger:__console] [INFO]- ###########################测试执行结束###########################[0m
+</pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr id='ft3.2' class='none'>
+    <td class='failCase'><div class='testcase'>test_2_get_endcity_all: 城市查询</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft3.2')" >
+        失败</a>
+    <div id='div_ft3.2' class="popup_window">
+        <pre>ft3.2: [32m[2021-08-09 16:09:06,647] [logger.py:95] [logger:__console] [INFO]- ###########################开始执行测试###########################[0m
+1628496546648
+2a09936bce826cabd2b4e874880a4d5c
+[32m[2021-08-09 16:09:06,702] [logger.py:95] [logger:__console] [INFO]- 接口返回数据:{'code': '200', 'msg': '没有获取到数据', 'data': None, 'success': False}[0m
+{'code': '200', 'msg': '没有获取到数据', 'data': None, 'success': False}
+[32m[2021-08-09 16:09:06,703] [logger.py:95] [logger:__console] [INFO]- ###########################测试执行结束###########################[0m
+Traceback (most recent call last):
+  File "D:\cxy\InterfaceTest_master-master\testcase\get_endcity_test.py", line 37, in test_2_get_endcity_all
+    self.assertEqual(self.result['msg'], '获取成功')
+AssertionError: '没有获取到数据' != '获取成功'
+- 没有获取到数据
++ 获取成功
+
+</pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+        <tr id='total_row'>
+            <td>总计</td>
+            <td>6</td>
+            <td>5</td>
+            <td>1</td>
+            <td>0</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+
+        <div id='ending'>&nbsp;</div>
+        
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+                text: '测试执行情况',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color: ['#95b75d', 'grey', '#b64645'],
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['通过','失败','错误']
+            },
+            series : [
+                {
+                    name: '测试执行情况',
+                    type: 'pie',
+                    radius : '60%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:5, name:'通过'},
+                        {value:1, name:'失败'},
+                        {value:0, name:'错误'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+    
+    </div>
+</body>
+</html>
