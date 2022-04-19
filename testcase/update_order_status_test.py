@@ -5,8 +5,8 @@ import genToken
 import time
 logge = logger.Log()
 
-class GetEndCity(unittest.TestCase):
-    ''' 获取到达城市 '''
+class UpdateOrderStatus(unittest.TestCase):
+    ''' 更新订单状态 '''
     def setUp(self):
         logge.info("开始执行测试".center(60,'#'))
         self.base_url = "https://ebk.17u.cn/cxyopenapi/distributor/city/endCity"
@@ -26,7 +26,7 @@ class GetEndCity(unittest.TestCase):
         self.assertEqual(self.result['msg'], '没有权限')
 
     def test_2_get_endcity_all(self):
-        ''' 城市查询 '''
+        ''' 更新订单状态 '''
         timestamp=str(int(round(time.time() * 1000)))
         token=genToken.Token()
         payload = {"data": {"keyword": "","startCityId": "3945","startStationId": ""},"channel": 555,"timestamp": timestamp,"token": token.gettoken(timestamp),"vcode": "TC007"}

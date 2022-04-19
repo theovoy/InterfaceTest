@@ -1,15 +1,31 @@
+import json
 import unittest
 import requests
 import logger
 import genToken
 import time
+import loadData
 logge = logger.Log()
+handle = loadData.ExcelHandle()
+timestamp=str(int(round(time.time() * 1000)))
+tokens=genToken.Token()
+token=tokens.gettoken(timestamp)
+data1={
+       "timestamp" : timestamp,
+       "token" : token
+}
 
 class GetDepartureCity(unittest.TestCase):
     ''' 获取出发城市 '''
     def setUp(self):
         logge.info("开始执行测试".center(60,'#'))
-        self.base_url = "https://ebk.17u.cn/cxyopenapi/distributor/city/startCity"
+        self.data = handle.read_excel_data('D:\\case.xlsx','Sheet1')
+        self.base_url = self.data[0][1]
+        data2 = eval(self.data[0][3])
+        data2.update(data1)
+        self.payload = json.dumps(data2)
+        self.headers = eval(self.data[0][4])
+        self.expect = self.data[0][5]
 
     def tearDown(self):
         logge.info(("接口返回数据:%s"%self.result).center(60, '#'))
@@ -17,25 +33,13 @@ class GetDepartureCity(unittest.TestCase):
         logge.info("测试执行结束".center(60,'#'))
 
     def test_1_get_city_all_null(self):
-        ''' 所有参数为空 '''
-        payload = {"data": {"keyword": ""}, "channel":"" , "timestamp":"" , "token":"", "vcode": ""}
-        headers = {"Content-Type": "application/json"}
-        r = requests.post(self.base_url, json=payload, headers=headers)
-        self.result = r.json()
-        self.assertEqual(self.result['code'], "401")
-        self.assertEqual(self.result['msg'], '没有权限')
-
-    def test_2_get_city_all(self):
-        ''' 获取所有出发城市 '''
-        timestamp=str(int(round(time.time() * 1000)))
-        token=genToken.Token()
-        payload = {"data": {"keyword": ""}, "channel":555 , "timestamp":timestamp , "token": token.gettoken(timestamp), "vcode": "TC007"}
-        headers = {"Content-Type": "application/json"}
-        r = requests.post(self.base_url, json=payload, headers=headers)
+        ''' 所有参数 '''
+        r = requests.post(self.base_url, data=self.payload, headers=self.headers)
+        print(self.payload)
+        print(self.base_url)
         self.result = r.json()
         self.assertEqual(self.result['code'], "200")
-        self.assertEqual(self.result['msg'], '获取成功')
-
+        self.assertEqual(self.result['msg'], self.expect)
 
 if __name__ == '__main__':
     unittest.main()

@@ -6,9 +6,9 @@ import time
 logge = logger.Log()
 timestamp=str(int(round(time.time() * 1000)))
 token=genToken.Token()
-class GetDepartureCity(unittest.TestCase):
+class WholePrecess(unittest.TestCase):
 
-    ''' 获取出发城市 '''
+    ''' 下单流程 '''
     def setUp(self):
         logge.info("开始执行测试".center(60,'#'))
 

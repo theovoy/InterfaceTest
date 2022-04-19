@@ -1,17 +1,36 @@
 import time
 import hashlib
 import encrypt_aes_p
-#timestamp=str(int(round(time.time() * 1000)))
+vcode_qa='TC001'
+secret_qa='e291c6a536ec4257812d13f00acd26d8'
 vcode='TC007'
-secret='71526121fa9c4fae8616c225c87d0eca'
-class Token:
+secret='c818b80eb1284276b67f72bd766c2c9b'
 
-    def gettoken(self,time):
-        data=secret+'&'+vcode+'&'+time
-        encryptdata=encrypt_aes_p.encrypt(data,secret)
-        token=hashlib.md5(encryptdata.encode('utf8')).hexdigest()
-        return token
+class Token:
+    def gettoken(self,time,env):
+        if env =='p':
+            data=secret+'&'+vcode+'&'+time
+            encryptdata=encrypt_aes_p.encrypt(data,secret)
+            token=hashlib.md5(encryptdata.encode('utf8')).hexdigest()
+            print('线上')
+            return token
+        else:
+            if env == 'qa':
+                data=secret_qa+'&'+vcode_qa+'&'+time
+                encryptdata=encrypt_aes_p.encrypt(data,secret_qa)
+                token=hashlib.md5(encryptdata.encode('utf8')).hexdigest()
+                print('qa')
+                return token
+
+            print('请输入正确环境')
+
 
 if __name__ == "__main__":
     token=Token()
-    eg=token.gettoken(str(int(round(time.time() * 1000))))
+    timestamp=str(int(round(time.time() * 1000)))
+    eg=token.gettoken(timestamp,'p')
+    print(timestamp)
+    print(eg)
+    to='||##||'
+    tt=hashlib.md5(to.encode('utf8')).hexdigest()
+    print(tt)
